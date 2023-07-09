@@ -1,11 +1,11 @@
 import React from 'react';
 import {Keyboard, LayoutChangeEvent} from 'react-native';
-import PickerSelector from '../components/InputSelector/Index';
-import Open from './../assets/vectors/app_down_arrow.svg';
+import Open from '../assets/images/app_down_arrow.svg';
 import {CardLink} from './CardLink';
 import {CustomText} from './CustomText';
 import {CustomTextInput} from './CustomTextInput';
 import {CustomView} from './CustomView';
+import PickerSelector from './PickerSelector';
 
 type ToggleableInputSelectorProps = {
   externalTexRef: any;
