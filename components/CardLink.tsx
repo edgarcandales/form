@@ -7,7 +7,7 @@ import Ripple from './mui/Ripple';
 export interface CardProps {
   children?: React.ReactNode;
   style?: StyleProp<ViewStyle> | undefined;
-  variant?: any;
+  variant?: 'outline';
 }
 
 export interface CardLinkProps extends CardProps {

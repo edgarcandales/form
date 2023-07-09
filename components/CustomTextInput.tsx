@@ -41,12 +41,12 @@ export type TextContentType =
 export interface CustomTextInputProps {
   label: string;
   value?: string | null;
-  textColor?: 'red' | undefined;
+  textColor?: 'black' | undefined;
   error?: string | undefined;
   errorColor?: 'red' | undefined;
   baseColor?: undefined;
   placeholder?: string;
-  placeholderTextColor?: 'red' | undefined;
+  placeholderTextColor?: 'gray' | undefined;
   secureTextEntry?: boolean | undefined;
   onChangeText?: (text: string, unmasked: string) => void | undefined;
   renderLeftAccessory?(): JSX.Element | undefined;
@@ -65,7 +65,7 @@ export interface CustomTextInputProps {
   onSubmitEditing?: (
     e: NativeSyntheticEvent<TextInputSubmitEditingEventData>,
   ) => void;
-  externalTexRef?: any;
+  externalTexRef?: React.RefObject<HTMLDivElement>;
   textContentType?: TextContentType;
   required?: boolean;
   maxLength?: number;
@@ -97,7 +97,7 @@ export const CustomTextInput: FC<CustomTextInputProps> = ({
   keyboardType,
   mask = undefined,
   spellCheck = true,
-  bgColor = 'gray',
+  bgColor = '#D3D3D3',
   onSubmitEditing,
   externalTexRef,
   textContentType = 'none',
@@ -110,7 +110,7 @@ export const CustomTextInput: FC<CustomTextInputProps> = ({
   const [_state, setState] = useState<any>({
     value: value,
   });
-  const onChangeText1 = (text: string, unmasked: string): void => {
+  const onChangeTextField = (text: string, unmasked: string): void => {
     if (onChangeText) {
       onChangeText(text, unmasked);
     }
@@ -131,7 +131,7 @@ export const CustomTextInput: FC<CustomTextInputProps> = ({
       <TouchableOpacity
         onPress={() => clearText()}
         style={styles.clearButtonContainer}>
-        <ClearIcon width={20} height={20} fill={'red'} />
+        <ClearIcon width={20} height={20} fill={'blue'} />
       </TouchableOpacity>
     );
   }
@@ -142,11 +142,13 @@ export const CustomTextInput: FC<CustomTextInputProps> = ({
       keyboardType={keyboardType}
       value={value ?? undefined}
       secureTextEntry={secureTextEntry}
-      onChangeText={(masked: any) => onChangeText1(masked, undefined as any)}
+      onChangeText={(masked: (string | RegExp)[]) =>
+        onChangeTextField(masked, undefined as any)
+      }
       mask={mask as any}
       ref={textFieldRef}
       label={label}
-      baseColor={baseColor ? 'red' : undefined}
+      baseColor={baseColor ? 'black' : undefined}
       tintColor={styles.tint.color}
       labelTextStyle={styles.label}
       lineWidth={0}
@@ -155,7 +157,7 @@ export const CustomTextInput: FC<CustomTextInputProps> = ({
       errorColor={errorColor ? 'yellow' : undefined}
       error={error}
       placeholder={placeholder}
-      placeholderTextColor={placeholderTextColor ? 'red' : undefined}
+      placeholderTextColor={placeholderTextColor ? 'gray' : undefined}
       autoCorrect={autoCorrect}
       activeLineWidth={0}
       style={[styles.tfStyle, {fontWeight: fontWeight}]}
@@ -201,7 +203,7 @@ function createTextInputStyles(): any {
       alignItems: 'center',
     },
     tint: {
-      color: 'blue',
+      color: 'red',
     },
     label: {
       // color: AppProps.textColor,
@@ -220,7 +222,7 @@ function createTextInputStyles(): any {
       paddingBottom: 0,
       borderRadius: 5,
       borderWidth: 1,
-      borderColor: 'red',
+      borderColor: 'black',
       alignSelf: 'stretch',
     },
     outerContainerFocus: {
@@ -231,7 +233,7 @@ function createTextInputStyles(): any {
       alignSelf: 'stretch',
       borderRadius: 5,
       borderWidth: 1,
-      borderColor: 'red',
+      borderColor: 'black',
     },
   });
 }

@@ -8,20 +8,20 @@ import {CustomView} from './CustomView';
 import PickerSelector from './PickerSelector';
 
 type ToggleableInputSelectorProps = {
-  externalTexRef: any;
-  label: any;
-  placeholder: any;
-  value: any;
-  onChangeText: any;
-  actionElement: any;
+  externalTexRef: React.RefObject<HTMLDivElement>;
+  label: string;
+  placeholder: string;
+  value: string;
+  onChangeText: (input: string) => string;
+  actionElement: 'input' | 'read-only' | 'datePicker' | 'selector';
   textColor: string;
-  bgColor: any;
-  keyboardType: any;
-  mask: any;
+  bgColor: string;
+  keyboardType: 'default' | 'email-address' | 'numeric' | 'phone-pad';
+  mask: (string | RegExp)[] | undefined;
   onFocus: () => void;
   handleFocusNext: () => void;
   handleFocusPrevious: () => void;
-  textContentType: any;
+  textContentType: string;
   data: any;
   required?: boolean;
   maxLength?: number;
@@ -121,12 +121,12 @@ const ToggleableInputSelector: React.FC<ToggleableInputSelectorProps> = ({
         <CardLink>
           <CustomTextInput
             externalTexRef={externalTexRef}
-            textColor={'red'}
+            textColor={'black'}
             fontWeight={'700'}
             label={label}
-            placeholder={placeholder}
-            value={value}
-            bgColor={bgColor}
+            placeholder={'Phone Number'}
+            value={'(843) 708 9303'}
+            bgColor={'gray'}
             onFocus={() => {
               Keyboard.dismiss();
               onFocus();

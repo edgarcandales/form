@@ -123,11 +123,11 @@ const InputSelector: FC<TextInputProps> = ({
         labelTextStyle={styles.label}
         lineWidth={0}
         autoCapitalize={autoCapitalize}
-        textColor={textColor ? 'blue' : undefined}
+        textColor={textColor ? 'black' : undefined}
         errorColor={errorColor ? 'red' : undefined}
         error={error}
         placeholder={placeholder}
-        placeholderTextColor={placeholderTextColor ? 'blue' : undefined}
+        placeholderTextColor={placeholderTextColor ? 'gray' : undefined}
         autoCorrect={autoCorrect}
         activeLineWidth={0}
         //  style={styles.tfStyle}
@@ -174,7 +174,7 @@ function createAHTextInputStyles(): any {
       alignItems: 'center',
     },
     tint: {
-      color: 'blue',
+      color: 'black',
     },
     label: {
       // color: AppProps.textColor,
@@ -192,7 +192,7 @@ function createAHTextInputStyles(): any {
       marginVertical: 8,
       paddingTop: 0,
       paddingBottom: 0,
-      borderRadius: 10,
+      borderRadius: 5,
       borderWidth: 1,
       borderColor: 'red',
       alignSelf: 'stretch',
@@ -203,7 +203,7 @@ function createAHTextInputStyles(): any {
       paddingTop: 0,
       paddingBottom: 0,
       alignSelf: 'stretch',
-      borderRadius: 10,
+      borderRadius: 5,
       borderWidth: 1,
       borderColor: 'red',
     },

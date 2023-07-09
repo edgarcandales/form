@@ -7,9 +7,25 @@ import {
   validateEmail,
 } from '../../../utils/ValidationUtils';
 import {dateRegex, maskPhone, maskSSN, statesList} from '../constants';
-//import {getDefaultValidationObject, IUserInfo, ValidationObject} from './types';
 
-interface IInput {
+export interface IUserInfo {
+  token: string;
+  firstName: string;
+  lastName: string;
+  streetAddress1: string;
+  city: string;
+  state: string;
+  zip: string;
+  phone: string;
+  phoneType: 'Mobile';
+  gender: string;
+  email: string;
+  dateOfBirth: string;
+  ssn: string;
+  middleInitial: string;
+  streetAddress2: string;
+}
+export interface IInput {
   id: string;
   label: string;
   placeholder: string;
@@ -29,12 +45,12 @@ interface IInput {
   keyboardType?: 'numeric' | 'email-address';
   mask?: (string | RegExp)[];
   data?: any;
-  ref?: React.RefObject<any>;
+  ref?: React.RefObject<HTMLDivElement>;
 }
 
 //type IRegister2InfoRoute = RouteProp<any, 'Register2Account'>;
 
-function useInputsContent(configuration: any) {
+function useInputsContent(configuration: string[]) {
   const validationRules: any = {
     firstName: {
       required: true,
@@ -172,8 +188,8 @@ function useInputsContent(configuration: any) {
   let inputs: IInput[] = [
     {
       id: '1',
-      label: 'amenity_reg_step2_firstname',
-      placeholder: 'amenity_reg_step2_firstname',
+      label: 'First Name',
+      placeholder: 'First Name',
       value: userInfo.firstName,
       onChangeText: (e: string) => {
         setUserInfo(prevUserInfo => {
@@ -206,8 +222,8 @@ function useInputsContent(configuration: any) {
     },
     {
       id: '2',
-      label: 'amenity_reg_step2_middlename_optional',
-      placeholder: 'amenity_reg_step2_middlename',
+      label: 'Middle Name',
+      placeholder: 'Middle Name',
       value: userInfo.middleInitial,
       onChangeText: (e: string) => setUserInfo({...userInfo, middleInitial: e}),
       actionElement: 'input',
@@ -218,8 +234,8 @@ function useInputsContent(configuration: any) {
     },
     {
       id: '3',
-      label: 'amenity_reg_step2_lastname',
-      placeholder: 'amenity_reg_step2_lastname',
+      label: 'Last Name',
+      placeholder: 'Last Name',
       value: userInfo.lastName,
       onChangeText: (e: string) => {
         setUserInfo(prevUserInfo => {
@@ -252,15 +268,15 @@ function useInputsContent(configuration: any) {
     },
     {
       id: '4',
-      label: 'amenity_reg_step1_dob',
-      placeholder: 'amenity_reg_step1_dob_pattern',
+      label: 'Date of Birth',
+      placeholder: 'Date of Birth',
       value: userInfo.dateOfBirth,
       onChangeText: () => {
         setDatePickerState(true);
       },
       actionElement: true ? 'read-only' : 'datePicker',
       textColor: 'primary',
-      bgColor: 'gray',
+      bgColor: '#D3D3D3',
       scrollPosition: Platform.OS === 'ios' ? 120 : 200,
       required: validationRules.dateOfBirth.required,
       isError: isError.dateOfBirth,
@@ -272,8 +288,8 @@ function useInputsContent(configuration: any) {
     },
     {
       id: '5',
-      label: 'amenity_reg_step2_ssn_title',
-      placeholder: 'amenity_reg_step2_ssn_pattern',
+      label: 'Social Security Number',
+      placeholder: 'Social Security Number',
       value: userInfo.ssn,
       onChangeText: (e: string) => {
         setUserInfo(prevUserInfo => {
@@ -297,7 +313,7 @@ function useInputsContent(configuration: any) {
       minLength: validationRules.ssn.minLength,
       maxLength: validationRules.ssn.maxLength,
       isError: isError.ssn,
-      errorMessage: 'not_valid_ssn',
+      errorMessage: 'Not Valid Social Security Number',
       onBlur: () =>
         !!validationRules.ssn.maxLength &&
         userInfo.ssn.length < validationRules.ssn.maxLength
@@ -306,8 +322,8 @@ function useInputsContent(configuration: any) {
     },
     {
       id: '6',
-      label: 'app_gender',
-      placeholder: 'app_choose_gender',
+      label: 'Gender',
+      placeholder: 'Gender',
       value: userInfo?.gender,
       onChangeText: (e: string) => setUserInfo({...userInfo, gender: e}),
       actionElement: 'selector',
@@ -315,7 +331,7 @@ function useInputsContent(configuration: any) {
       scrollPosition: Platform.OS === 'ios' ? 150 : 303,
       required: validationRules.gender.required,
       isError: isError.gender,
-      errorMessage: 'not_valid_gender',
+      errorMessage: 'Not Valid Gender',
       onBlur: () =>
         userInfo.gender
           ? setIsError({...isError, gender: false})
@@ -323,8 +339,8 @@ function useInputsContent(configuration: any) {
     },
     {
       id: '7',
-      label: 'patient_email',
-      placeholder: 'patient_email',
+      label: 'Email',
+      placeholder: 'Email',
       value: userInfo.email,
       onChangeText: (e: string) => {
         setUserInfo(prevUserInfo => {
@@ -343,15 +359,15 @@ function useInputsContent(configuration: any) {
       scrollPosition: Platform.OS === 'ios' ? 340 : 440,
       required: validationRules.email.required,
       maxLength: validationRules.email.maxLength,
-      errorMessage: 'not_valid_email',
+      errorMessage: 'Not valid Email',
       isError: isError.email,
       onBlur: () =>
         setIsError({...isError, email: !validateEmail(userInfo.email)}),
     },
     {
       id: '8',
-      label: 'app_address_1',
-      placeholder: 'app_address_1',
+      label: 'Address 1',
+      placeholder: 'Address 1',
       value: userInfo.streetAddress1,
       onChangeText: (e: string) => {
         setUserInfo(prevUserInfo => {
@@ -371,7 +387,7 @@ function useInputsContent(configuration: any) {
       scrollPosition: Platform.OS === 'ios' ? 410 : 510,
       required: validationRules.streetAddress1.required,
       maxLength: validationRules.streetAddress1.maxLength,
-      errorMessage: 'not_valid_address_line1',
+      errorMessage: 'not valid Address 1',
       isError: isError.streetAddress1,
       onBlur: () =>
         setIsError({
@@ -384,8 +400,8 @@ function useInputsContent(configuration: any) {
     },
     {
       id: '9',
-      label: 'app_address_2_optional',
-      placeholder: 'app_address_2',
+      label: 'Address 2',
+      placeholder: 'Address 2',
       value: userInfo.streetAddress2,
       onChangeText: (e: string) =>
         setUserInfo({...userInfo, streetAddress2: e}),
@@ -397,8 +413,8 @@ function useInputsContent(configuration: any) {
     },
     {
       id: '10',
-      label: 'patient_city',
-      placeholder: 'patient_city',
+      label: 'City',
+      placeholder: 'City',
       value: userInfo.city,
       onChangeText: (e: string) => {
         setUserInfo(prevUserInfo => {
@@ -418,7 +434,7 @@ function useInputsContent(configuration: any) {
       scrollPosition: Platform.OS === 'ios' ? 550 : 650,
       required: validationRules.city.required,
       maxLength: validationRules.city.maxLength,
-      errorMessage: 'not_valid_city',
+      errorMessage: 'Not valid City',
       isError: isError.city,
       onBlur: () =>
         setIsError({
@@ -428,8 +444,8 @@ function useInputsContent(configuration: any) {
     },
     {
       id: '11',
-      label: 'patient_state',
-      placeholder: 'patient_state',
+      label: 'State',
+      placeholder: 'State',
       value:
         statesList.find(list => list.value === userInfo?.state)?.label ?? '',
       onChangeText: (e: string) => setUserInfo({...userInfo, state: e}),
@@ -439,7 +455,7 @@ function useInputsContent(configuration: any) {
       scrollPosition: Platform.OS === 'ios' ? 500 : 750,
       required: validationRules.state.required,
       maxLength: validationRules.state.maxLength,
-      errorMessage: 'not_valid_state',
+      errorMessage: 'Not valid State',
       isError: isError.state,
       onBlur: () =>
         userInfo.state
@@ -448,8 +464,8 @@ function useInputsContent(configuration: any) {
     },
     {
       id: '12',
-      label: 'amenity_app_zip_code',
-      placeholder: 'amenity_app_zip_code',
+      label: 'Zip Code',
+      placeholder: 'Zip Code',
       value: userInfo.zip,
       onChangeText: (e: string) => {
         setUserInfo(prevUserInfo => {
@@ -469,7 +485,7 @@ function useInputsContent(configuration: any) {
       scrollPosition: Platform.OS === 'ios' ? 640 : 740,
       required: validationRules.zip.required,
       maxLength: validationRules.zip.maxLength,
-      errorMessage: 'not_valid_zip',
+      errorMessage: 'Not valid Zip Code',
       isError: isError.zip,
       onBlur: () =>
         setIsError({
@@ -482,7 +498,7 @@ function useInputsContent(configuration: any) {
     {
       id: '13',
       textColor: '#1f1f1f',
-      label: 'amenity_reg_phone_number',
+      label: 'Phone Number',
       placeholder: '###-###-####',
       value: userInfo.phone,
       onChangeText: () => {

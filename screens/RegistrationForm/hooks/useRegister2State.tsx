@@ -1,6 +1,10 @@
 import {useState} from 'react';
+import {stateProps} from '../constants';
 
-const useRegister2State = (availableGenders: string, statesList: any[]) => {
+const useRegister2State = (
+  availableGenders: string,
+  statesList: stateProps[],
+) => {
   const configuration = availableGenders
     .split(',')
     .map((str: string, index: number) => ({

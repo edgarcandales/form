@@ -18,9 +18,9 @@ interface IPickerSelectorProps {
   onValueChange?: (value?: string) => void;
   label: string;
   value: string;
-  bgColor: any;
+  bgColor: string;
   textColor: string;
-  externalTexRef: any;
+  externalTexRef: React.RefObject<HTMLDivElement>;
   onUpArrow: () => void;
   onDownArrow: () => void;
   onFocus: () => void;
@@ -113,19 +113,19 @@ const PickerSelector: React.FC<IPickerSelectorProps> = ({
               <CustomView width={1}>
                 <InputSelector
                   externalTexRef={externalTexRef}
-                  textColor={'primary'}
+                  textColor={'black'}
                   fontWeight={'700'}
                   label={label}
                   placeholder={placeholder}
                   value={value}
-                  bgColor={bgColor}
+                  bgColor={'#D3D3D3'}
                   onFocus={() => {
                     Keyboard.dismiss();
                   }}
                   required={required}
                 />
                 <Open
-                  fill={'red'}
+                  fill={'black'}
                   style={{position: 'absolute', top: '43%', right: '5%'}}
                 />
               </CustomView>
@@ -138,27 +138,3 @@ const PickerSelector: React.FC<IPickerSelectorProps> = ({
 };
 
 export default PickerSelector;
-
-const styles = () =>
-  StyleSheet.create({
-    pickerWrapper: {
-      height: 48,
-      width: '100%',
-      justifyContent: 'center',
-    },
-    solidType: {
-      backgroundColor: 'red',
-    },
-    noSolidType: {
-      borderColor: 'red',
-      borderWidth: 1,
-      backgroundColor: 'white',
-      marginVertical: 10,
-    },
-    commonStyles: {
-      height: 48,
-      width: '100%',
-      justifyContent: 'center',
-      borderRadius: 5,
-    },
-  });

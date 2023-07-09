@@ -1,5 +1,6 @@
 import {useState} from 'react';
-const useHandleEvents = (inputs: any, scrollViewRef: any) => {
+import {IInput} from './useInputsContent';
+const useHandleEvents = (inputs: IInput[], scrollViewRef: any) => {
   const [currentInput, setCurrentInput] = useState({
     activeInputIndex: 0,
     nextFocusDisabled: false,
@@ -16,7 +17,7 @@ const useHandleEvents = (inputs: any, scrollViewRef: any) => {
       textContentType: '',
     },
   });
-  const handleFocus = (index: number, scrollPosition: any) => () => {
+  const handleFocus = (index: number, scrollPosition: number) => () => {
     scrollViewRef.current.scrollTo({y: scrollPosition, animated: true});
     setCurrentInput({
       ...currentInput,
