@@ -142,7 +142,7 @@ function useInputsContent(configuration: string[]) {
     phoneType: 'Mobile',
     gender: '',
     email: '',
-    dateOfBirth: '',
+    dateOfBirth: '06/18/1988',
     ssn: '',
     middleInitial: '',
     streetAddress2: '',
@@ -210,7 +210,7 @@ function useInputsContent(configuration: string[]) {
       required: validationRules.firstName.required,
       maxLength: validationRules.firstName.maxLength,
       isError: isError.firstName,
-      errorMessage: 'not_valid_first_name',
+      errorMessage: 'Not valid First Name',
       onBlur: () =>
         setIsError({
           ...isError,
@@ -256,7 +256,7 @@ function useInputsContent(configuration: string[]) {
       required: validationRules.lastName.required,
       maxLength: validationRules.lastName.maxLength,
       isError: isError.lastName,
-      errorMessage: 'not_valid_last_name',
+      errorMessage: 'Not valid Last name',
       onBlur: () =>
         setIsError({
           ...isError,
@@ -280,7 +280,7 @@ function useInputsContent(configuration: string[]) {
       scrollPosition: Platform.OS === 'ios' ? 120 : 200,
       required: validationRules.dateOfBirth.required,
       isError: isError.dateOfBirth,
-      errorMessage: 'not_valid_dob',
+      errorMessage: 'Not valid Date of Birth',
       onBlur: () =>
         userInfo.dateOfBirth.length > 4
           ? setIsError({...isError, dateOfBirth: true})
@@ -313,7 +313,7 @@ function useInputsContent(configuration: string[]) {
       minLength: validationRules.ssn.minLength,
       maxLength: validationRules.ssn.maxLength,
       isError: isError.ssn,
-      errorMessage: 'Not Valid Social Security Number',
+      errorMessage: 'Not valid Social Security Number',
       onBlur: () =>
         !!validationRules.ssn.maxLength &&
         userInfo.ssn.length < validationRules.ssn.maxLength
@@ -331,7 +331,7 @@ function useInputsContent(configuration: string[]) {
       scrollPosition: Platform.OS === 'ios' ? 150 : 303,
       required: validationRules.gender.required,
       isError: isError.gender,
-      errorMessage: 'Not Valid Gender',
+      errorMessage: 'Not valid Gender',
       onBlur: () =>
         userInfo.gender
           ? setIsError({...isError, gender: false})
@@ -387,7 +387,7 @@ function useInputsContent(configuration: string[]) {
       scrollPosition: Platform.OS === 'ios' ? 410 : 510,
       required: validationRules.streetAddress1.required,
       maxLength: validationRules.streetAddress1.maxLength,
-      errorMessage: 'not valid Address 1',
+      errorMessage: 'Not valid Address 1',
       isError: isError.streetAddress1,
       onBlur: () =>
         setIsError({

@@ -125,7 +125,7 @@ const ToggleableInputSelector: React.FC<ToggleableInputSelectorProps> = ({
             fontWeight={'700'}
             label={label}
             placeholder={'Phone Number'}
-            value={'(843) 708 9303'}
+            value={value}
             bgColor={'gray'}
             onFocus={() => {
               Keyboard.dismiss();
