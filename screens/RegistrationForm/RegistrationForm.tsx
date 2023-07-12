@@ -1,13 +1,8 @@
 import React, {useRef, useState} from 'react';
-import {Keyboard, ScrollView, StyleSheet, View} from 'react-native';
+import {ScrollView} from 'react-native';
 import {KeyboardAccessoryNavigation} from 'react-native-keyboard-accessory';
-import Open from '../../assets/images/app_down_arrow.svg';
-import {CardLink} from '../../components/CardLink';
-import {CustomText} from '../../components/CustomText';
-import {CustomTextInput} from '../../components/CustomTextInput';
 import {CustomView} from '../../components/CustomView';
-import InputSelector from '../../components/InputSelector';
-import PickerSelector from '../../components/PickerSelector';
+import DateSelector from '../../components/DateSelector';
 import ToggleableInputSelector from '../../components/ToggleableInputSelector';
 import {statesList} from './constants';
 import useHandleEvents from './hooks/useHandleEvents';
@@ -110,6 +105,23 @@ const RegistrationForm = () => {
             ),
           )}
         </CustomView>
+        <DateSelector
+          //  locale={userLocale}
+          open={!!datePickerState}
+          date={dateOnPicker}
+          onConfirm={(dob: Date) => {
+            setDatePickerState(false);
+            setUserInfo({
+              ...userInfo,
+              dateOfBirth: dob ?? '',
+            });
+            inputs[4].ref?.current?.focus();
+            setDateOnPicker(dob);
+          }}
+          onCancel={() => {
+            setDatePickerState(false);
+          }}
+        />
       </ScrollView>
       {currentInput?.inputInfo?.actionElement === 'input' && (
         <KeyboardAccessoryNavigation

@@ -24,12 +24,15 @@ export const CardLink: React.FC<CardLinkProps> = ({
   showArrow,
   style,
   ref,
-  ...sx
 }) => {
   return (
     <Ripple
       ref={ref}
-      onPress={onPress}
+      onPress={() => {
+        console.log('asdf');
+
+        onPress();
+      }}
       rippleContainerBorderRadius={variant === 'outline' ? 10 : 20}
       style={style}>
       {children}

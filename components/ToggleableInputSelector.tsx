@@ -1,6 +1,7 @@
 import React from 'react';
 import {Keyboard, LayoutChangeEvent} from 'react-native';
 import Open from '../assets/images/app_down_arrow.svg';
+import {getFormattedDate} from '../utils/FunctionUtils';
 import {CardLink} from './CardLink';
 import {CustomText} from './CustomText';
 import {CustomTextInput} from './CustomTextInput';
@@ -98,11 +99,11 @@ const ToggleableInputSelector: React.FC<ToggleableInputSelectorProps> = ({
         <CardLink onPress={onChangeText}>
           <CustomTextInput
             externalTexRef={externalTexRef}
-            textColor={'red'}
+            textColor={'black'}
             fontWeight={'700'}
             label={label}
             placeholder={placeholder}
-            value={value}
+            value={getFormattedDate(value)}
             bgColor={bgColor}
             onFocus={() => {
               Keyboard.dismiss();

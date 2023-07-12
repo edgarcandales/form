@@ -142,7 +142,7 @@ function useInputsContent(configuration: string[]) {
     phoneType: 'Mobile',
     gender: '',
     email: '',
-    dateOfBirth: '06/18/1988',
+    dateOfBirth: '',
     ssn: '',
     middleInitial: '',
     streetAddress2: '',
@@ -268,19 +268,19 @@ function useInputsContent(configuration: string[]) {
     },
     {
       id: '4',
-      label: 'Date of Birth',
-      placeholder: 'Date of Birth',
+      label: 'Date of birth',
+      placeholder: 'Date of birth',
       value: userInfo.dateOfBirth,
       onChangeText: () => {
         setDatePickerState(true);
       },
-      actionElement: true ? 'read-only' : 'datePicker',
+      actionElement: 'datePicker',
       textColor: 'primary',
-      bgColor: '#D3D3D3',
+      bgColor: undefined,
       scrollPosition: Platform.OS === 'ios' ? 120 : 200,
       required: validationRules.dateOfBirth.required,
       isError: isError.dateOfBirth,
-      errorMessage: 'Not valid Date of Birth',
+      errorMessage: 'Not valid Date of birth',
       onBlur: () =>
         userInfo.dateOfBirth.length > 4
           ? setIsError({...isError, dateOfBirth: true})
