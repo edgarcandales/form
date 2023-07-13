@@ -4,7 +4,6 @@ import NavArrow from '../assets/images/app_arrow.svg';
 import {tID} from '../utils/TestID';
 
 import {
-  default as CloseIcon,
   default as NavListItemArrow,
   default as PopupArrow,
 } from '../assets/images/app_arrow.svg';
@@ -34,7 +33,7 @@ export interface CustomButtonProps {
   leftItemSpacing?: number | undefined;
   rightItem?: JSX.Element;
   rightItemSpacing?: number | undefined;
-  color?: srting;
+  color?: string;
   outlineBorderColor?: string;
   textVariant?: string;
   style?: any;
@@ -139,7 +138,7 @@ export const CustomButton: FC<CustomButtonProps> = ({
   );
 };
 
-var styles = {
+const styles = {
   base: {
     width: 262,
     height: 56,
