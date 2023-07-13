@@ -379,3 +379,81 @@ export const maskActivationCode = [
 export const maskZip = [/\d/, /\d/, /\d/, /\d/, /\d/];
 
 export const last4maskSSN = [/\d/, /\d/, /\d/, /\d/];
+
+export const validationRules = {
+  firstName: {
+    required: true,
+    minLength: 1,
+    maxLength: 100,
+  },
+  middleName: {
+    required: false,
+    minLength: 0,
+    maxLength: 100,
+  },
+  lastName: {
+    required: true,
+    minLength: 1,
+    maxLength: 100,
+  },
+  dateOfBirth: {
+    required: true,
+    minLength: null,
+    maxLength: null,
+  },
+  ssn: {
+    required: true,
+    minLength: null,
+    maxLength: 11,
+  },
+  gender: {
+    required: true,
+    minLength: null,
+    maxLength: null,
+  },
+  email: {
+    required: true,
+    minLength: null,
+    maxLength: 80,
+  },
+  streetAddress1: {
+    required: true,
+    minLength: 1,
+    maxLength: 49,
+  },
+  streetAddress2: {
+    required: false,
+    minLength: 1,
+    maxLength: 100,
+  },
+  city: {
+    required: true,
+    minLength: 1,
+    maxLength: 50,
+  },
+  state: {
+    required: true,
+    minLength: null,
+    maxLength: null,
+  },
+  zip: {
+    required: true,
+    minLength: null,
+    maxLength: 5,
+  },
+  phone: {
+    required: true,
+    minLength: null,
+    maxLength: null,
+  },
+  userName: {
+    required: true,
+    minLength: 5,
+    maxLength: 60,
+  },
+  password: {
+    required: true,
+    minLength: 8,
+    maxLength: 20,
+  },
+};

@@ -1,6 +1,7 @@
 import React, {useRef, useState} from 'react';
 import {ScrollView} from 'react-native';
 import {KeyboardAccessoryNavigation} from 'react-native-keyboard-accessory';
+import {CustomButton} from '../../components/CustomButton';
 import {CustomView} from '../../components/CustomView';
 import DateSelector from '../../components/DateSelector';
 import ToggleableInputSelector from '../../components/ToggleableInputSelector';
@@ -120,6 +121,13 @@ const RegistrationForm = () => {
           }}
           onCancel={() => {
             setDatePickerState(false);
+          }}
+        />
+        <CustomButton
+          color={'red'}
+          title={'Button'}
+          onPress={() => {
+            console.log('press');
           }}
         />
       </ScrollView>

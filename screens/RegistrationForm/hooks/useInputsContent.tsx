@@ -1,12 +1,18 @@
 //import {RouteProp} from '@react-navigation/native';
-import {useRef, useState} from 'react';
+import {MutableRefObject, RefObject, useRef, useState} from 'react';
 import {ColorValue, Platform} from 'react-native';
-import {dateDashToSlash, formatSSN} from '../../../utils/FunctionUtils';
+import {formatSSN, getFormattedDate} from '../../../utils/FunctionUtils';
 import {
   evaluateValidationRule,
   validateEmail,
 } from '../../../utils/ValidationUtils';
-import {dateRegex, maskPhone, maskSSN, statesList} from '../constants';
+import {
+  dateRegex,
+  maskPhone,
+  maskSSN,
+  statesList,
+  validationRules,
+} from '../constants';
 
 export interface IUserInfo {
   token: string;
@@ -20,7 +26,7 @@ export interface IUserInfo {
   phoneType: 'Mobile';
   gender: string;
   email: string;
-  dateOfBirth: string;
+  dateOfBirth: Date | string;
   ssn: string;
   middleInitial: string;
   streetAddress2: string;
@@ -45,89 +51,12 @@ export interface IInput {
   keyboardType?: 'numeric' | 'email-address';
   mask?: (string | RegExp)[];
   data?: any;
-  ref?: React.RefObject<HTMLDivElement>;
+  ref?:
+    | RefObject<HTMLDivElement>
+    | MutableRefObject<HTMLDivElement | null | undefined>;
 }
 
-//type IRegister2InfoRoute = RouteProp<any, 'Register2Account'>;
-
 function useInputsContent(configuration: string[]) {
-  const validationRules: any = {
-    firstName: {
-      required: true,
-      minLength: 1,
-      maxLength: 100,
-    },
-    middleName: {
-      required: false,
-      minLength: 0,
-      maxLength: 100,
-    },
-    lastName: {
-      required: true,
-      minLength: 1,
-      maxLength: 100,
-    },
-    dateOfBirth: {
-      required: true,
-      minLength: null,
-      maxLength: null,
-    },
-    ssn: {
-      required: true,
-      minLength: null,
-      maxLength: 11,
-    },
-    gender: {
-      required: true,
-      minLength: null,
-      maxLength: null,
-    },
-    email: {
-      required: true,
-      minLength: null,
-      maxLength: 80,
-    },
-    streetAddress1: {
-      required: true,
-      minLength: 1,
-      maxLength: 49,
-    },
-    streetAddress2: {
-      required: false,
-      minLength: 1,
-      maxLength: 100,
-    },
-    city: {
-      required: true,
-      minLength: 1,
-      maxLength: 50,
-    },
-    state: {
-      required: true,
-      minLength: null,
-      maxLength: null,
-    },
-    zip: {
-      required: true,
-      minLength: null,
-      maxLength: 5,
-    },
-    phone: {
-      required: true,
-      minLength: null,
-      maxLength: null,
-    },
-    userName: {
-      required: true,
-      minLength: 5,
-      maxLength: 60,
-    },
-    password: {
-      required: true,
-      minLength: 8,
-      maxLength: 20,
-    },
-  };
   const [datePickerState, setDatePickerState] = useState<Boolean>(false);
 
   const [userInfo, setUserInfo] = useState<IUserInfo>({
@@ -180,7 +109,7 @@ function useInputsContent(configuration: string[]) {
     !!userInfo.phone?.length &&
     !!userInfo.phoneType?.length &&
     !!userInfo.gender?.length &&
-    !!userInfo.dateOfBirth.match(dateRegex) &&
+    !!getFormattedDate(userInfo?.dateOfBirth).match(dateRegex) &&
     !!formatSSN(userInfo.ssn)?.length &&
     !!validationRules.ssn.maxLength &&
     userInfo.ssn.length >= validationRules.ssn.maxLength - 2;
@@ -270,7 +199,7 @@ function useInputsContent(configuration: string[]) {
       id: '4',
       label: 'Date of birth',
       placeholder: 'Date of birth',
-      value: userInfo.dateOfBirth,
+      value: getFormattedDate(userInfo.dateOfBirth),
       onChangeText: () => {
         setDatePickerState(true);
       },
@@ -282,7 +211,7 @@ function useInputsContent(configuration: string[]) {
       isError: isError.dateOfBirth,
       errorMessage: 'Not valid Date of birth',
       onBlur: () =>
-        userInfo.dateOfBirth.length > 4
+        getFormattedDate(userInfo.dateOfBirth).length > 4
           ? setIsError({...isError, dateOfBirth: true})
           : setIsError({...isError, dateOfBirth: true}),
     },

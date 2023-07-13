@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {MutableRefObject, RefObject} from 'react';
 import {Keyboard, LayoutChangeEvent} from 'react-native';
 import Open from '../assets/images/app_down_arrow.svg';
 import {getFormattedDate} from '../utils/FunctionUtils';
@@ -9,7 +9,10 @@ import {CustomView} from './CustomView';
 import PickerSelector from './PickerSelector';
 
 type ToggleableInputSelectorProps = {
-  externalTexRef: React.RefObject<HTMLDivElement>;
+  externalTexRef:
+    | RefObject<HTMLDivElement>
+    | MutableRefObject<HTMLDivElement | null | undefined>
+    | undefined;
   label: string;
   placeholder: string;
   value: string;

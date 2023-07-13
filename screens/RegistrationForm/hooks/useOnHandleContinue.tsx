@@ -23,6 +23,7 @@ const useOnHandleContinue = (userInfo: any, navigation: any) => {
   };
   const onHandleContinue = () => {
     console.log('Handle Continue');
+    registerErrorAlert('Press', 'Button has been pressed');
   };
 
   return {

@@ -32,37 +32,6 @@ export function dateDashToSlash(str: string | null): string | null {
   return null;
 }
 
-export function htmlWrap(str: string) {
-  let cleanString = str
-    .replace(/\\r\\n/g, ' ')
-    .replace(/\\r\\n\\r\\n/g, ' ')
-    .replace(/\\/g, ' ');
-  let htmlCode = `<html>
-  <head>
-  <script>
-  alert("one");
-  function tellHeight() {
-     window.alert(“im here”);
-  }
-  tellHeight();
-  </script>
-
-    <style>
-     body {
-        font-size:50px;
-        color: #220049;
-        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-    </style>
-  </head>
-
-<body onload="javascript:tellHeight()">
-   ${cleanString}
-</body>
-</html>`;
-  return htmlCode;
-}
-
 export const registerErrorAlert = (
   title: string,
   message: string,
@@ -100,17 +69,25 @@ export function blurHexCode(color: ColorValue, opacity: number): ColorValue {
   return rgbaWithDeformation;
 }
 
-export function getFormattedDate(date: Date) {
+export function getFormattedDate(date: Date | string) {
   if (!date) {
-    return null;
+    return '';
   }
-  var year = date.getFullYear();
+  if (!(date instanceof Date)) {
+    return '';
+  }
 
-  var month = (1 + date.getMonth()).toString();
-  month = month.length > 1 ? month : '0' + month;
+  var d = new Date(date),
+    month = '' + (d.getMonth() + 1),
+    day = '' + d.getDate(),
+    year = d.getFullYear();
 
-  var day = date.getDate().toString();
-  day = day.length > 1 ? day : '0' + day;
+  if (month.length < 2) {
+    month = '0' + month;
+  }
+  if (day.length < 2) {
+    day = '0' + day;
+  }
 
-  return month + '/' + day + '/' + year;
+  return [month, day, year].join('/');
 }
