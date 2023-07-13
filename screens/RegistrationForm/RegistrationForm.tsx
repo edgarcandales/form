@@ -8,6 +8,7 @@ import ToggleableInputSelector from '../../components/ToggleableInputSelector';
 import {statesList} from './constants';
 import useHandleEvents from './hooks/useHandleEvents';
 import useInputsContent from './hooks/useInputsContent';
+import useOnHandleContinue from './hooks/useOnHandleContinue';
 import useRegister2State from './hooks/useRegister2State';
 
 const RegistrationForm = () => {
@@ -23,7 +24,15 @@ const RegistrationForm = () => {
     setDatePickerState,
     setIsError,
   } = useInputsContent(configuration);
-
+  const {
+    onHandleContinue,
+    onLoading,
+    outOfAreaModal,
+    minAgeModal,
+    setOutOfAreaModal,
+    setMinAgeModal,
+    showActivity,
+  } = useOnHandleContinue(userInfo);
   const {handleFocus, handleFocusNext, handleFocusPrevious, currentInput} =
     useHandleEvents(inputs, scrollViewRef);
   const isButtonDiable = !isButtonDisabled || onLoading;
@@ -126,9 +135,7 @@ const RegistrationForm = () => {
         <CustomButton
           color={'red'}
           title={'Button'}
-          onPress={() => {
-            console.log('press');
-          }}
+          onPress={onHandleContinue}
         />
       </ScrollView>
       {currentInput?.inputInfo?.actionElement === 'input' && (
