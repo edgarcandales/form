@@ -17,16 +17,17 @@ const useHandleEvents = (inputs: IInput[], scrollViewRef: any) => {
       textContentType: '',
     },
   });
-  const handleFocus = (index: number, scrollPosition: number) => () => {
-    scrollViewRef.current.scrollTo({y: scrollPosition, animated: true});
-    setCurrentInput({
-      ...currentInput,
-      nextFocusDisabled: index === inputs.length - 1,
-      previousFocusDisabled: index === 0,
-      activeInputIndex: index,
-      inputInfo: inputs[index],
-    });
-  };
+  const handleFocus =
+    (index: number, scrollPosition: number | undefined) => () => {
+      scrollViewRef.current.scrollTo({y: scrollPosition, animated: true});
+      setCurrentInput({
+        ...currentInput,
+        nextFocusDisabled: index === inputs.length - 1,
+        previousFocusDisabled: index === 0,
+        activeInputIndex: index,
+        inputInfo: inputs[index],
+      });
+    };
   const handleFocusNext = () => {
     const {nextFocusDisabled, activeInputIndex} = currentInput;
     if (nextFocusDisabled) {

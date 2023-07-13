@@ -13,6 +13,7 @@ import {
   statesList,
   validationRules,
 } from '../constants';
+import {Configuration} from './types';
 
 export interface IUserInfo {
   token: string;
@@ -47,7 +48,7 @@ export interface IInput {
   errorMessage?: string;
   onBlur?: () => void;
   textColor?: string;
-  bgColor?: ColorValue;
+  bgColor?: string;
   keyboardType?: 'numeric' | 'email-address';
   mask?: (string | RegExp)[];
   data?: any;
@@ -56,7 +57,7 @@ export interface IInput {
     | MutableRefObject<HTMLDivElement | null | undefined>;
 }
 
-function useInputsContent(configuration: string[]) {
+function useInputsContent(configuration: Configuration) {
   const [datePickerState, setDatePickerState] = useState<Boolean>(false);
 
   const [userInfo, setUserInfo] = useState<IUserInfo>({

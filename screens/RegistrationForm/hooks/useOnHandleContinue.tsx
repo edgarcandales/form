@@ -6,12 +6,6 @@ const useOnHandleContinue = (userInfo: any) => {
   const [minAgeModal, setMinAgeModal] = useState<boolean>(false);
   const [showActivity, setShowActivity] = useState<boolean>(false);
   const [onLoading, setOnLoading] = useState<boolean>(false);
-  let address = {
-    line1: userInfo.streetAddress1,
-    city: userInfo.city,
-    state: userInfo.state,
-    zip: userInfo.zip,
-  };
   const onHandleContinue = () => {
     console.log('Handle Continue');
     registerErrorAlert('Press', 'Button has been pressed', () => {});

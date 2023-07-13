@@ -62,3 +62,9 @@ export interface bannerFeaturesObject {
   url: string;
   visible: boolean;
 }
+
+export type Configuration = {
+  id: string;
+  label: string;
+  value: string;
+}[];

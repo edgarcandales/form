@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {ScrollView} from 'react-native';
+import {LayoutChangeEvent, Platform, ScrollView} from 'react-native';
 import {KeyboardAccessoryNavigation} from 'react-native-keyboard-accessory';
 import {CustomButton} from '../../components/CustomButton';
 import {CustomView} from '../../components/CustomView';
@@ -15,6 +15,7 @@ const RegistrationForm = () => {
   const availableGenders = 'Male,Female,Nonbinary,X,Unknown';
   const scrollViewRef = useRef<ScrollView>(null);
   const {configuration} = useRegister2State(availableGenders, statesList);
+  console.log(configuration, 'configuration');
   let {
     inputs,
     datePickerState,
@@ -22,17 +23,8 @@ const RegistrationForm = () => {
     userInfo,
     setUserInfo,
     setDatePickerState,
-    setIsError,
   } = useInputsContent(configuration);
-  const {
-    onHandleContinue,
-    onLoading,
-    outOfAreaModal,
-    minAgeModal,
-    setOutOfAreaModal,
-    setMinAgeModal,
-    showActivity,
-  } = useOnHandleContinue(userInfo);
+  const {onHandleContinue, onLoading} = useOnHandleContinue(userInfo);
   const {handleFocus, handleFocusNext, handleFocusPrevious, currentInput} =
     useHandleEvents(inputs, scrollViewRef);
   const isButtonDiable = !isButtonDisabled || onLoading;
@@ -133,6 +125,7 @@ const RegistrationForm = () => {
           }}
         />
         <CustomButton
+          disabled={isButtonDiable}
           color={'red'}
           title={'Button'}
           onPress={onHandleContinue}
@@ -148,7 +141,6 @@ const RegistrationForm = () => {
           onPrevious={handleFocusPrevious}
           androidAdjustResize
           doneButtonTitle="Done"
-          //  avoidKeyboard
           accessoryStyle={{height: 35}}
         />
       )}
